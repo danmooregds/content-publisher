@@ -9,15 +9,15 @@ class DocumentType::SectionField
     { contents: { section: params[:section] } }
   end
 
-  def form_issues(edition, params)
+  def form_issues(_edition, _params)
     Requirements::CheckerIssues.new
   end
 
-  def preview_issues(edition)
+  def preview_issues(_edition)
     Requirements::CheckerIssues.new
   end
 
-  def publish_issues(edition)
+  def publish_issues(_edition)
     Requirements::CheckerIssues.new
   end
 end
