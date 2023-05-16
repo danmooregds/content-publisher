@@ -6,6 +6,8 @@ en:
           label: Title
         summary:
           label: Summary
+        section:
+          label: Section me!
         body:
           label: Body
         primary_publishing_organisation:

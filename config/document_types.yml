@@ -10,12 +10,15 @@ news_article: &news_article
     - title_and_base_path
     - summary
     - body
+    - section
   tags:
     - primary_publishing_organisation
     - organisations
     - role_appointments
     - topical_events
     - world_locations
+
+#      could create a long-form here.
 
 publication: &publication
   pre_release: true

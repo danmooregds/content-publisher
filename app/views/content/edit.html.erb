@@ -26,7 +26,11 @@
     <%= render "content/edit/change_notes", edition: @edition %>
   <% end %>
 
+  <div class="govuk-button-group">
   <%= render "govuk_publishing_components/components/button", {
     text: "Save", margin_bottom: true
   } %>
+  <%#= link_to("cancel", $INDEX_PATH , class: "govuk-link") %>
+  </div>
+
 <% end %>

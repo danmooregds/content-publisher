@@ -1,0 +1,12 @@
+<p>This is the first and only section.</p>
+
+<%= render "govuk_publishing_components/components/textarea", {
+  label: {
+    text: "Section",
+    bold: true
+  },
+  id: "section",
+  name: "section",
+  value: params[:section] || edition.contents["section"],
+  rows: 4,
+} %>
