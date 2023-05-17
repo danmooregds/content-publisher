@@ -6,8 +6,6 @@ en:
           label: Title
         summary:
           label: Summary
-        section:
-          label: Section me!
         body:
           label: Body
         primary_publishing_organisation:
@@ -25,6 +23,26 @@ en:
         world_locations:
           label: World locations
           hint: Tag locations this content is about. If it only relates to the UK you don’t need to use this tag.
+
+    multi_part:
+      fields:
+        title:
+          guidance:
+            title: Creating a title
+            body_govspeak: MULTI_PART_TEST_TITLE_GUIDE_BODY
+        summary:
+          guidance:
+            title: Writing a summary
+            body_govspeak: MULTI_PART_TEST_SUMMARY_GUIDE_BODY
+        body:
+          guidance:
+            title: Writing a body
+            body_govspeak: MULTI_PART_TEST_BODY_GUIDE_BODY
+        section:
+          guidance:
+            title: Writing a Section Title
+            body_govspeak: MULTI_PART_TEST_SECTION_GUIDE_BODY
+
 
     correspondence:
       fields:
@@ -428,4 +446,3 @@ en:
 
 
 
-             

@@ -191,3 +191,18 @@ en:
     written_statement:
       label: Written statement to Parliament
       description: Written statements given to Parliament by a minister, where there is significant public interest in the entire statement.
+    #      TODO: better label, also a multi-part section/chunk
+
+    multi_part_group:
+      label: Multi-part group for Testing
+      description: Multi-part group for Testing desc
+      guidance:
+        body_govspeak: |
+          Multi-part group for Testing guidance desc body
+
+    multi_part:
+      label: Multi-part for Testing
+      description: Multi-part for Testing desc
+      guidance:
+        body_govspeak: |
+          Multi-part for Testing guidance desc body
