@@ -1,0 +1,9 @@
+<%= render "govuk_publishing_components/components/input", {
+  label: {
+    text: "Part Title",
+    bold: true
+  },
+  id: "part_title",
+  name: "part_title",
+  value: params[:part_title] || edition.contents["part_title"],
+} %>

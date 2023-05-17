@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-class DocumentType::SectionField
+class DocumentType::PartSummaryField
   def id
-    "section"
+    "part_summary"
   end
 
   def updater_params(_edition, params)
-    { contents: { section: params[:section] } }
+    { contents: { part_summary: params[:part_summary] } }
   end
 
   def form_issues(_edition, _params)

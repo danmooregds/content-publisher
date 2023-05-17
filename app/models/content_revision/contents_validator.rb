@@ -1,5 +1,5 @@
 class ContentRevision::ContentsValidator < ActiveModel::EachValidator
-  CONTENTS_FIELDS = %w[body section].freeze
+  CONTENTS_FIELDS = %w[body].freeze
 
   def validate_each(record, attribute, value)
     value.each do |key, content|
