@@ -98,13 +98,10 @@ RSpec.describe PublishingApiPayload do
     end
 
     it "delegates to document type fields for contents" do
-      body_field = instance_double(DocumentType::BodyField,
-                                   payload: { details: { body: "body" } })
-
-      document_type = build(:document_type, contents: [body_field])
-      edition = build(:edition, document_type:)
+      document_type = build(:document_type, contents: [DocumentType::BodyField.new])
+      edition = build(:edition, document_type:, contents: { body: "body" })
       payload = described_class.new(edition).payload
-      expect(payload[:details][:body]).to eq("body")
+      expect(payload[:details][:body]).to eq("<p>body</p>\n")
     end
 
     it "includes a lead image if present" do

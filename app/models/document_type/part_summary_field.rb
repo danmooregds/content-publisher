@@ -9,6 +9,10 @@ class DocumentType::PartSummaryField
     "part_summary"
   end
 
+  def payload(edition, payload_context, contents)
+    payload_context.deep_merge! description: contents[id]
+  end
+
   def updater_params(_edition, params)
     { contents: { part_summary: params[:part_summary] } }
   end

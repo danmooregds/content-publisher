@@ -8,6 +8,12 @@ en:
           label: Summary
         body:
           label: Body
+        part_title:
+          label: Part title
+        part_summary:
+          label: Part summary
+        part_body:
+          label: Part body
         primary_publishing_organisation:
           label: Primary organisation
           hint: The organisation responsible for publishing and maintaining this content.
@@ -38,10 +44,18 @@ en:
           guidance:
             title: Writing a body
             body_govspeak: MULTI_PART_TEST_BODY_GUIDE_BODY
-        section:
+        part_title:
           guidance:
-            title: Writing a Section Title
-            body_govspeak: MULTI_PART_TEST_SECTION_GUIDE_BODY
+            title: Writing a part title
+            body_govspeak: Make it titlesome and party
+        part_summary:
+          guidance:
+            title: Writing a part summary
+            body_govspeak: Make it descriptive of the part
+        part_body:
+          guidance:
+            title: Writing a part body
+            body_govspeak: This is basically the actual part
 
 
     correspondence:

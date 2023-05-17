@@ -9,8 +9,8 @@ class DocumentType::SummaryField
     "summary"
   end
 
-  def payload(edition)
-    { description: edition.summary }
+  def payload(edition, payload_context)
+    payload_context.deep_merge!({ description: edition.summary })
   end
 
   def updater_params(_edition, params)

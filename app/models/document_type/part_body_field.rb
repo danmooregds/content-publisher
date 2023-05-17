@@ -10,6 +10,10 @@ class DocumentType::PartBodyField
     "part_body"
   end
 
+  def payload(edition, payload_context, contents)
+    payload_context.deep_merge! body: GovspeakDocument.new(contents[id], edition).payload_html
+  end
+
   def updater_params(_edition, params)
     { contents: { part_body: params[:part_body] } }
   end

@@ -7,12 +7,8 @@ class DocumentType::BodyField
     "body"
   end
 
-  def payload(edition)
-    {
-      details: {
-        body: GovspeakDocument.new(edition.contents[id], edition).payload_html,
-      },
-    }
+  def payload(edition, payload_context, contents)
+    payload_context.deep_merge! body: GovspeakDocument.new(contents[id], edition).payload_html
   end
 
   def updater_params(_edition, params)

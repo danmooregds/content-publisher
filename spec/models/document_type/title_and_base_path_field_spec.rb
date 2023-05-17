@@ -2,7 +2,8 @@ RSpec.describe DocumentType::TitleAndBasePathField do
   describe "#payload" do
     it "returns a hash with title and routing attributes" do
       edition = build(:edition, title: "Some title", base_path: "/foo/bar/baz")
-      payload = described_class.new.payload(edition)
+      payload = {}
+      described_class.new.payload(edition, payload)
 
       expect(payload).to eq(
         title: "Some title",

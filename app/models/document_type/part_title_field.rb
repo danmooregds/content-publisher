@@ -9,6 +9,10 @@ class DocumentType::PartTitleField
     "part_title"
   end
 
+  def payload(edition, payload_context, contents)
+    payload_context.deep_merge! title: contents[id]
+  end
+
   def updater_params(_edition, params)
     { contents: { part_title: params[:part_title] } }
   end

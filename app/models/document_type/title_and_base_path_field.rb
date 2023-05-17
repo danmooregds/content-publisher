@@ -9,14 +9,14 @@ class DocumentType::TitleAndBasePathField
     "title_and_base_path"
   end
 
-  def payload(edition)
-    {
+  def payload(edition, payload_context)
+    payload_context.deep_merge!({
       base_path: edition.base_path,
       title: edition.title,
       routes: [
         { path: edition.base_path, type: "exact" },
       ],
-    }
+    })
   end
 
   def updater_params(edition, params)

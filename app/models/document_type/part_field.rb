@@ -11,6 +11,15 @@ class DocumentType::PartField
     fields.push(DocumentType::PartBodyField.new)
   end
 
+  def payload(edition, payload_context, contents)
+    part_payload = {}
+    part_content = contents[id]
+    DocumentType::PartTitleField.new.payload(edition, part_payload, part_content)
+    DocumentType::PartSummaryField.new.payload(edition, part_payload, part_content)
+    DocumentType::PartBodyField.new.payload(edition, part_payload, part_content)
+    payload_context.deep_merge!(part: part_payload)
+  end
+
   def updater_params(_edition, params)
     { contents: { part: params[:part] } }
   end
