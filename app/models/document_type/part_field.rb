@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
-class DocumentType::PartBodyField
-
-  def add_content_fields(fields)
-    fields.push(self)
+class DocumentType::PartField
+  def id
+    "part"
   end
 
-  def id
-    "part_body"
+  def add_content_fields(fields)
+    fields.push(DocumentType::PartTitleField.new)
+    fields.push(DocumentType::PartSummaryField.new)
+    fields.push(DocumentType::PartBodyField.new)
   end
 
   def updater_params(_edition, params)
-    { contents: { part_body: params[:part_body] } }
+    { contents: { part: params[:part] } }
   end
 
   def form_issues(_edition, _params)

@@ -1,6 +1,10 @@
 class DocumentType::TitleAndBasePathField
   TITLE_MAX_LENGTH = 300
 
+  def add_content_fields(fields)
+    fields.push(self)
+  end
+
   def id
     "title_and_base_path"
   end

@@ -14,6 +14,14 @@ class DocumentType
     item || (raise "Document type #{id} not found")
   end
 
+  def content_fields
+    fields_collector = []
+    contents.each do |field|
+      field.add_content_fields(fields_collector)
+    end
+    fields_collector
+  end
+
   def self.all
     @all ||= begin
       hashes = YAML.load_file(Rails.root.join("config/document_types.yml"), aliases: true)["document_types"]
@@ -53,4 +61,5 @@ class DocumentType
     include InitializeWithHash
     attr_reader :schema_name, :rendering_app
   end
+
 end

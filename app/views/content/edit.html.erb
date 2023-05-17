@@ -18,7 +18,7 @@
       }
     ) do |f| %>
 
-  <% @edition.document_type.contents.each do |field| %>
+  <% @edition.document_type.content_fields.each do |field| %>
     <%= render "content/edit/#{field.id}_field", edition: @edition, issues: @issues %>
   <% end %>
 

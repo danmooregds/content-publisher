@@ -1,4 +1,8 @@
 class DocumentType::BodyField
+  def add_content_fields(fields)
+    fields.push(self)
+  end
+
   def id
     "body"
   end

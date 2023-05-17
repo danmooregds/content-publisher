@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class DocumentType::PartSummaryField
+  def add_content_fields(fields)
+    fields.push(self)
+  end
+
   def id
     "part_summary"
   end

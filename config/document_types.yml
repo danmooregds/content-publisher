@@ -10,9 +10,7 @@ multi_part: &multi_part
     - title_and_base_path
     - summary
     - body
-    - part_title
-    - part_summary
-    - part_body
+    - part
   tags: []
 
 news_article: &news_article
