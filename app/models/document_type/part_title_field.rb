@@ -14,7 +14,7 @@ class DocumentType::PartTitleField
   end
 
   def payload(edition, payload_context, content_context)
-    payload_context.deep_merge! title: field_value(content_context)
+    payload_context.deep_merge! title: field_value(content_context), slug: field_value(content_context).parameterize
   end
 
   def updater_params(_edition, params)

@@ -23,7 +23,7 @@ class DocumentType::PartField
     DocumentType::PartTitleField.new.payload(edition, part_payload, part_content)
     DocumentType::PartSummaryField.new.payload(edition, part_payload, part_content)
     DocumentType::PartBodyField.new.payload(edition, part_payload, part_content)
-    payload_context.deep_merge!(part: part_payload)
+    payload_context.deep_merge!(parts: [part_payload])
   end
 
   def updater_params(_edition, params)
@@ -32,9 +32,9 @@ class DocumentType::PartField
         part: {
           part_title: params[:part_title],
           part_body: params[:part_body],
-          part_summary: params[:part_summary]
-        }
-      }
+          part_summary: params[:part_summary],
+        },
+      },
     }
   end
 

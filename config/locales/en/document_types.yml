@@ -5,15 +5,15 @@ en:
         title_and_base_path:
           label: Title
         summary:
-          label: Summary
+          label: Description
         body:
           label: Body
         part:
-          label: Party part
+          label: Part
         part_title:
           label: Part title
         part_summary:
-          label: Part summary
+          label: Part description
         part_body:
           label: Part body
         primary_publishing_organisation:
