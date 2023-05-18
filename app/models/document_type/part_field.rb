@@ -5,16 +5,16 @@ class DocumentType::PartField
     "part"
   end
 
+  def contents
+    [DocumentType::PartTitleField.new, DocumentType::PartSummaryField.new, DocumentType::PartBodyField.new]
+  end
+
   def externalise_content_fields(fields)
     fields.concat contents
   end
 
   def field_value(content_context)
     content_context[id] unless content_context.nil?
-  end
-
-  def contents
-    [DocumentType::PartTitleField.new, DocumentType::PartSummaryField.new, DocumentType::PartBodyField.new]
   end
 
   def payload(edition, payload_context, contents)
