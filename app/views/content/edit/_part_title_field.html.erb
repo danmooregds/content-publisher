@@ -1,5 +1,5 @@
 <%=
-  # TODO make relative to content context
+  Rails.logger.info('content context for part title edit: ' + content_context.inspect)
   render "govuk_publishing_components/components/input", {
   label: {
     text: "Part Title",
@@ -7,5 +7,5 @@
   },
   id: "part_title",
   name: "part_title",
-  value: params[:part_title] || edition.contents["part"]["part_title"],
+  value: field.field_value(content_context) # TODO removed init from params - for post validation fail repair - for spike expediency
 } %>

@@ -6,9 +6,15 @@ class DocumentType::PartField
   end
 
   def add_content_fields(fields)
-    fields.push(DocumentType::PartTitleField.new)
-    fields.push(DocumentType::PartSummaryField.new)
-    fields.push(DocumentType::PartBodyField.new)
+    fields.concat contents
+  end
+
+  def field_value(content_context)
+    content_context[id] unless content_context.nil?
+  end
+
+  def contents
+    [DocumentType::PartTitleField.new, DocumentType::PartSummaryField.new, DocumentType::PartBodyField.new]
   end
 
   def payload(edition, payload_context, contents)

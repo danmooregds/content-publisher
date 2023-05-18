@@ -18,10 +18,12 @@
       }
     ) do |f| %>
 
-  <% @edition.document_type.content_fields.each do |field| %>
+  <% @edition.document_type.contents.each do |field| %>
     <%=
+      Rails.logger.info('content context for top level edit: ' + @edition.contents.inspect)
+
       # TODO pass relative content context
-      render "content/edit/#{field.id}_field", edition: @edition, issues: @issues %>
+      render "content/edit/#{field.id}_field", edition: @edition, issues: @issues, field: field, content_context: @edition.contents %>
   <% end %>
 
   <% if @edition.document.live_edition %>

@@ -1,5 +1,4 @@
 <%=
-  # TODO make relative to content context
   render "govuk_publishing_components/components/textarea", {
   label: {
     text: "Part Body",
@@ -7,6 +6,6 @@
   },
   id: "part_body",
   name: "part_body",
-  value: params[:part_body] || edition.contents["part"]["part_body"],
+  value: field.field_value(content_context), # TODO removed init from params - for post validation fail repair - for spike expediency
   rows: 4
 } %>

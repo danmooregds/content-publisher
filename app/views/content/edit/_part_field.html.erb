@@ -1,1 +1,7 @@
-Part
+Part start
+
+<% field.contents.each do |subfield| %>
+  <%= render "content/edit/#{subfield.id}_field", edition: @edition, issues: @issues, field: subfield, content_context: field.field_value(content_context) %>
+<% end %>
+
+Part depart
