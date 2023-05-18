@@ -8,6 +8,8 @@ en:
           label: Summary
         body:
           label: Body
+        part:
+          label: Party part
         part_title:
           label: Part title
         part_summary:

@@ -1,7 +1,7 @@
 class DocumentType::TitleAndBasePathField
   TITLE_MAX_LENGTH = 300
 
-  def add_content_fields(fields)
+  def externalise_content_fields(fields)
     fields.push(self)
   end
 

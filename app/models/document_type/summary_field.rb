@@ -1,7 +1,7 @@
 class DocumentType::SummaryField
   SUMMARY_MAX_LENGTH = 600
 
-  def add_content_fields(fields)
+  def externalise_content_fields(fields)
     fields.push(self)
   end
 

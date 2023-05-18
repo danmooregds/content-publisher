@@ -1,5 +1,5 @@
 class DocumentType::BodyField
-  def add_content_fields(fields)
+  def externalise_content_fields(fields)
     fields.push(self)
   end
 

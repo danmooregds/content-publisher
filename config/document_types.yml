@@ -1,7 +1,7 @@
 ---
 multi_part: &multi_part
   path_prefix: /government/multi_part
-  lead_image: true
+  lead_image: false
   attachments: inline_file_only
   publishing_metadata:
     schema_name: multi_part
