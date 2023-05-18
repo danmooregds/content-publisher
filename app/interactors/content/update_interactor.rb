@@ -62,8 +62,11 @@ private
   end
 
   def content_params
+    Rails.logger.info("updating content params for params #{params.inspect}")
     @content_params ||= fields.reduce({}) do |hash, field|
-      hash.merge!(field.updater_params(edition, params))
+      field_updater_params = field.updater_params(edition, params)
+      Rails.logger.info("updating content params for field #{field.class.name} with #{field_updater_params}")
+      hash.deep_merge!(field_updater_params)
     end
   end
 

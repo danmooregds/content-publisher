@@ -21,7 +21,15 @@ class DocumentType::PartField
   end
 
   def updater_params(_edition, params)
-    { contents: { part: params[:part] } }
+    {
+      contents: {
+        part: {
+          part_title: params[:part_title],
+          part_body: params[:part_body],
+          part_summary: params[:part_summary]
+        }
+      }
+    }
   end
 
   def form_issues(_edition, _params)

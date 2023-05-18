@@ -19,7 +19,9 @@
     ) do |f| %>
 
   <% @edition.document_type.content_fields.each do |field| %>
-    <%= render "content/edit/#{field.id}_field", edition: @edition, issues: @issues %>
+    <%=
+      # TODO pass relative content context
+      render "content/edit/#{field.id}_field", edition: @edition, issues: @issues %>
   <% end %>
 
   <% if @edition.document.live_edition %>

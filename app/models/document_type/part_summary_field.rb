@@ -9,8 +9,12 @@ class DocumentType::PartSummaryField
     "part_summary"
   end
 
+  def field_value(content_context)
+    content_context[id] unless content_context.nil?
+  end
+
   def payload(edition, payload_context, contents)
-    payload_context.deep_merge! description: contents[id]
+    payload_context.deep_merge! description: field_value(contents)
   end
 
   def updater_params(_edition, params)

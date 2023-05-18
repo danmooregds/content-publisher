@@ -9,8 +9,12 @@ class DocumentType::PartTitleField
     "part_title"
   end
 
-  def payload(edition, payload_context, contents)
-    payload_context.deep_merge! title: contents[id]
+  def field_value(content_context)
+    content_context[id] unless content_context.nil?
+  end
+
+  def payload(edition, payload_context, content_context)
+    payload_context.deep_merge! title: field_value(content_context)
   end
 
   def updater_params(_edition, params)
