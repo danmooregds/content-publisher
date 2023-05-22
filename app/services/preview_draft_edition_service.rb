@@ -9,7 +9,8 @@ class PreviewDraftEditionService
   def call
     put_draft_assets
     put_draft_content
-  rescue GdsApi::BaseError
+  rescue GdsApi::BaseError => error
+    Rails.logger.warn("BASE ERROR HERE ------" + JSON.dump(error))
     edition.update!(revision_synced: false)
     raise
   end
@@ -20,6 +21,7 @@ private
 
   def put_draft_content
     payload = PublishingApiPayload.new(edition, republish:).payload
+    Rails.logger.warn("PAYLOAD HERE ------" + JSON.dump(payload))
     GdsApi.publishing_api.put_content(edition.content_id, payload)
     edition.update!(revision_synced: true)
   end

@@ -11,7 +11,8 @@ multi_part: &multi_part
     - summary
     - body
     - part
-  tags: []
+  tags:
+    - primary_publishing_organisation
 
 news_article: &news_article
   path_prefix: /government/news
@@ -94,10 +95,10 @@ document_types:
   - id: notice
     <<: *publication
     label: Notice
-        
+
   - id: guidance
     <<: *publication
-    label: Non statutory guidance  
+    label: Non statutory guidance
 
   - id: policy_paper
     <<: *publication
