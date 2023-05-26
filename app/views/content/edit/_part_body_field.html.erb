@@ -1,11 +1,26 @@
-<%=
-  render "govuk_publishing_components/components/textarea", {
-  label: {
-    text: "Part Body",
-    bold: true
-  },
-  id: input_context.id("part_body"),
-  name: input_context.name("part_body"),
-  value: content.to_s,
-  rows: 4
-} %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "components/markdown_editor", {
+      label: {
+        text: t_doctype_field(edition, "part_body.label"),
+        bold: true
+      },
+      textarea: {
+        data: {
+          gramm: "false", # Disables grammerly plugin for markdown editor
+          gtm: "part-body-input",
+          "gtm-copy-paste-tracking": true,
+        },
+        id: "part_body",
+        name: "part_body",
+        value: field.field_value(content_context),
+        rows: 20,
+        spellcheck: "false",
+      },
+      govspeak_path: govspeak_preview_path(edition.document),
+      edition: edition,
+      paste_html_to_govspeak: true,
+      value: content.to_s
+    } %>
+  </div>
+</div>

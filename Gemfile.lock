@@ -87,6 +87,7 @@ GEM
       aws-sigv4 (~> 1.4)
     aws-sigv4 (1.5.2)
       aws-eventstream (~> 1, >= 1.0.2)
+    bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     brakeman (5.4.1)
@@ -495,6 +496,11 @@ GEM
       rack (>= 2.0.9)
     warden-oauth2 (0.0.1)
       warden
+    web-console (4.2.0)
+      actionview (>= 6.0.0)
+      activemodel (>= 6.0.0)
+      bindex (>= 0.4.0)
+      railties (>= 6.0.0)
     webmock (3.18.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -555,6 +561,7 @@ DEPENDENCIES
   simplecov
   sprockets-rails
   uglifier
+  web-console
   webmock
   with_advisory_lock
 

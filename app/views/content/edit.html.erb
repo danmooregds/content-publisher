@@ -26,11 +26,34 @@
     <%= render "content/edit/change_notes", edition: @edition %>
   <% end %>
 
-  <div class="govuk-button-group">
-  <%= render "govuk_publishing_components/components/button", {
-    text: "Save", margin_bottom: true
-  } %>
-  <%#= link_to("cancel", $INDEX_PATH , class: "govuk-link") %>
+  <div class="govuk-button-group govuk-!-margin-bottom-4">
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Save",
+      margin_bottom: true
+    } %>
+
+    <% if @edition.document_type.label.downcase.include?("multi-part") %>
+
+      <%= render "govuk_publishing_components/components/checkboxes", {
+        name: "collapsable",
+        items: [
+          {
+            label: "Part collapsable?",
+            value: "collapsable"
+          }
+        ]
+      } %>
+
+      <% if @edition.revision_synced %>
+        <%= render "govuk_publishing_components/components/button", {
+          text: "Add new Part",
+          margin_bottom: true,
+          secondary_solid: true,
+        } %>
+      <% end %>
+    <% end %>
+
+    <%= link_to("Back", document_path(@edition.document), class: "govuk-link") %>
   </div>
 
 <% end %>

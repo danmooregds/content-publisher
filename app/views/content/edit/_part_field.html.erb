@@ -1,6 +1,4 @@
-Part start
-
-<% field.fields.each do |subfield| %>
+<% field.contents.each do |subfield| %>
   <%= render "content/edit/#{subfield.id}_field",
              edition: @edition,
              issues: @issues,
@@ -8,5 +6,3 @@ Part start
              input_context: input_context,
              content: field.subfield_content(content, subfield) %>
 <% end %>
-
-Part depart
