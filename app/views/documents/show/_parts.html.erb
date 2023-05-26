@@ -1,0 +1,19 @@
+<% contents = @edition.document_type.content_fields.map { |field|
+  {
+    field: t_doctype_field(@edition, "#{field.id}.label"),
+    value: render("documents/show/contents/#{field.id}_field", edition: @edition)
+  }
+} %>
+
+<%= render "govuk_publishing_components/components/summary_list", {
+  id: "parts",
+  title: "Parts",
+  borderless: true,
+  items: contents,
+  # edit: (
+  #   if @edition.editable?
+  #     { href: content_path(@edition.document),
+  #       data_attributes: { gtm: "edit-summary" } }
+  #   end
+  # ),
+} %>
