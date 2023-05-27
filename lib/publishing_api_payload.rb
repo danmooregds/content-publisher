@@ -31,7 +31,9 @@ class PublishingApiPayload
     top_level_fields.each { |f| f.payload(edition, payload) }
 
     details_fields = document_type.contents.select { |f| !TOP_LEVEL_FIELD_IDS.include?(f.id) }
-    details_fields.each { |f| f.payload(edition, payload[:details], edition.contents) }
+    details_fields.each do |f|
+      payload[:details][f.id.to_sym] = f.to_payload(edition, edition.contents)
+    end
 
     document_type.tags.each { |f| payload.deep_merge!(f.payload(edition)) }
 

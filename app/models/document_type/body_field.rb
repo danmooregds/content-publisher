@@ -1,14 +1,14 @@
 class DocumentType::BodyField
-  def externalise_content_fields(fields)
-    fields.push(self)
+  def list_content_fields
+    [self]
   end
 
   def id
     "body"
   end
 
-  def payload(edition, payload_context, contents)
-    payload_context.deep_merge! body: GovspeakDocument.new(contents[id], edition).payload_html
+  def to_payload(edition, contents)
+    GovspeakDocument.new(contents[id], edition).payload_html
   end
 
   def updater_params(_edition, params)

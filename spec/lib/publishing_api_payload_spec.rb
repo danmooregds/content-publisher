@@ -179,9 +179,33 @@ RSpec.describe PublishingApiPayload do
       payload = described_class.new(edition, republish: true).payload
 
       expect(payload).to match a_hash_including(
-        update_type: "republish",
-        bulk_publishing: true,
-      )
+                                 update_type: "republish",
+                                 bulk_publishing: true,
+                               )
+    end
+
+    describe 'multipart handling' do
+
+      it 'saves a compliant payload from a multi-part instance' do
+        multipart_type = DocumentType.find('multi_part')
+        edition = build(:edition, document_type: multipart_type, contents: {
+          'body' => "the specific body",
+          'part' => {
+            'part_title' => "part title",
+            'part_body' => "part body",
+            'part_summary' => "part desc"
+          }
+        })
+        payload = PublishingApiPayload.new(edition).payload
+        expect(payload[:details][:body]).to include('the specific body')
+        expect(payload[:details][:parts]).to eq([{
+                                                   title: 'part title',
+                                                   slug: 'part-title',
+                                                   body: "<p>part body</p>\n",
+                                                   description: 'part desc'
+                                                 }
+                                                ])
+      end
     end
   end
 end

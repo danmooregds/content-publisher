@@ -15,11 +15,7 @@ class DocumentType
   end
 
   def content_fields
-    fields_collector = []
-    contents.each do |field|
-      field.externalise_content_fields(fields_collector)
-    end
-    fields_collector
+    contents.map(&:list_content_fields).flatten
   end
 
   def self.all

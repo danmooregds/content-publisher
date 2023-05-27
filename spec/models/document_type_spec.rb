@@ -34,8 +34,9 @@ RSpec.describe DocumentType do
       expect(DocumentType.find("multi_part").content_fields).to include(an_instance_of(DocumentType::PartBodyField))
     end
 
-    it "gives us content fields indirectly via part composite" do
-      expect(DocumentType.find("multi_part").contents).to include(an_instance_of(DocumentType::PartField))
+    it "gives us content fields indirectly via parts composite" do
+      expect(DocumentType.find("multi_part").contents).to include(an_instance_of(DocumentType::PartsField))
+      expect(DocumentType.find("multi_part").content_fields).not_to include(an_instance_of(DocumentType::PartsField))
       expect(DocumentType.find("multi_part").content_fields).not_to include(an_instance_of(DocumentType::PartField))
     end
   end

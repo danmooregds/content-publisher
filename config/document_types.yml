@@ -10,7 +10,7 @@ multi_part: &multi_part
     - title_and_base_path
     - summary
     - body
-    - part
+    - parts
   tags:
     - primary_publishing_organisation
 

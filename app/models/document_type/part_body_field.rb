@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class DocumentType::PartBodyField
-  def externalise_content_fields(fields)
-    fields.push(self)
+  def list_content_fields
+    [self]
   end
 
   def id
@@ -13,8 +13,8 @@ class DocumentType::PartBodyField
     content_context[id] unless content_context.nil?
   end
 
-  def payload(edition, payload_context, contents)
-    payload_context.deep_merge! body: GovspeakDocument.new(field_value(contents), edition).payload_html
+  def to_payload(edition, contents)
+    GovspeakDocument.new(field_value(contents), edition).payload_html
   end
 
   def updater_params(_edition, params)

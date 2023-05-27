@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class DocumentType::PartTitleField
-  def externalise_content_fields(fields)
-    fields.push(self)
+  def list_content_fields
+    [self]
   end
 
   def id
@@ -13,8 +13,10 @@ class DocumentType::PartTitleField
     content_context[id] unless content_context.nil?
   end
 
-  def payload(edition, payload_context, content_context)
-    payload_context.deep_merge! title: field_value(content_context), slug: field_value(content_context).parameterize
+  def to_payload(edition, content_context)
+    Rails.logger.warn('part title content ' + content_context.inspect)
+
+    field_value(content_context)
   end
 
   def updater_params(_edition, params)

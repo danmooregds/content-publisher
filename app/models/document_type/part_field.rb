@@ -9,21 +9,26 @@ class DocumentType::PartField
     [DocumentType::PartTitleField.new, DocumentType::PartSummaryField.new, DocumentType::PartBodyField.new]
   end
 
-  def externalise_content_fields(fields)
-    fields.concat contents
+  def list_content_fields
+    contents.map(&:list_content_fields)
   end
 
   def field_value(content_context)
     content_context[id] unless content_context.nil?
   end
 
-  def payload(edition, payload_context, contents)
-    part_payload = {}
-    part_content = contents[id]
-    DocumentType::PartTitleField.new.payload(edition, part_payload, part_content)
-    DocumentType::PartSummaryField.new.payload(edition, part_payload, part_content)
-    DocumentType::PartBodyField.new.payload(edition, part_payload, part_content)
-    payload_context.deep_merge!(parts: [part_payload])
+  def to_payload(edition, content_context)
+    Rails.logger.warn('part content context ' + content_context.inspect)
+    part_content = content_context[id]
+    title = DocumentType::PartTitleField.new.to_payload(edition, part_content)
+    description = DocumentType::PartSummaryField.new.to_payload(edition, part_content)
+    body = DocumentType::PartBodyField.new.to_payload(edition, part_content)
+    {
+      title:,
+      slug: title.parameterize,
+      description: description,
+      body: body
+    }
   end
 
   def updater_params(_edition, params)
