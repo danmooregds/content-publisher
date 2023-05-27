@@ -1,6 +1,5 @@
 class PublishingApiPayload
   PUBLISHING_APP = "content-publisher".freeze
-  TOP_LEVEL_FIELD_IDS = %w[summary title_and_base_path]
 
   attr_reader :edition, :document_type, :publishing_metadata, :republish
 
@@ -27,11 +26,13 @@ class PublishingApiPayload
     }
     payload[:first_published_at] = history.first_published_at if history.first_published_at.present?
 
-    top_level_fields = document_type.contents.select { |f| TOP_LEVEL_FIELD_IDS.include? f.id }
+    top_level_fields = document_type.contents.select { |f| f.top_level_field? }
     top_level_fields.each { |f| f.payload(edition, payload) }
 
-    details_fields = document_type.contents.select { |f| !TOP_LEVEL_FIELD_IDS.include?(f.id) }
-    details_fields.each { |f| f.payload(edition, payload[:details], edition.contents) }
+    details_fields = document_type.contents.select { |f| !f.top_level_field? }
+    details_fields.each do |f|
+      payload[:details][f.id.to_sym] = f.to_payload(edition, edition.contents[f.id])
+    end
 
     document_type.tags.each { |f| payload.deep_merge!(f.payload(edition)) }
 

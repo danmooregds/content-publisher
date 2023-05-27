@@ -1,9 +1,13 @@
-<% contents = @edition.document_type.content_fields.map { |field|
-  {
-    field: t_doctype_field(@edition, "#{field.id}.label"),
-    value: render("documents/show/contents/#{field.id}_field", edition: @edition)
-  }
-} %>
+<% contents = @edition.document_type.fields.map { |field|
+  Rails.logger.warn('rendering contents for: ' + field.id)
+  # move into Field objects?
+  if field.top_level_field?
+    field.as_list_items(edition: @edition, content: {})
+  else
+    field.as_list_items(edition: @edition, content: @edition.contents[field.id])
+  end
+}.flatten
+%>
 
 <% edition_metadata = [] %>
 

@@ -1,10 +1,9 @@
 RSpec.describe DocumentType::BodyField do
-  describe "#payload" do
+  describe "#to_payload" do
     it "returns a hash with 'body' converted to Govspeak" do
-      edition = build(:edition, contents: { body: "Hey **buddy**!" })
-      payload = { details: {} }
-      described_class.new.payload(edition, payload[:details], edition.contents)
-      expect(payload[:details][:body]).to eq("<p>Hey <strong>buddy</strong>!</p>\n")
+      edition = build(:edition, contents: "Hey **buddy**!")
+      payload = described_class.new.to_payload(edition, edition.contents)
+      expect(payload).to eq("<p>Hey <strong>buddy</strong>!</p>\n")
     end
   end
 

@@ -1,23 +1,31 @@
 # frozen_string_literal: true
 
 class DocumentType::PartSummaryField
-  def externalise_content_fields(fields)
-    fields.push(self)
+  include DocumentType::ListableField
+
+  def top_level_field?
+    false
+  end
+
+  def as_list_items(edition:, content:)
+    [ as_list_item(edition:, content:) ]
+  end
+
+  def list_content_fields
+    [self]
   end
 
   def id
     "part_summary"
   end
 
-  def field_value(content_context)
-    content_context[id] unless content_context.nil?
-  end
-
-  def payload(edition, payload_context, contents)
-    payload_context.deep_merge! description: field_value(contents)
+  def to_payload(edition, content)
+    content
   end
 
   def updater_params(_edition, params)
+    raise 'WIP not yet moved to composite-pattern hierarchical content updates'
+
     { contents: { part_summary: params[:part_summary] } }
   end
 

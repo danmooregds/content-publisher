@@ -22,7 +22,7 @@
     name: "title",
     value: params[:title] || edition.title,
     error_items: issues&.items_for(:title),
-    rows: 2,
+    rows: 1,
     maxlength: DocumentType::TitleAndBasePathField::TITLE_MAX_LENGTH,
     data: { "url-preview": "input" },
     describedby: "title-guidance"

@@ -1,11 +1,15 @@
-<%=
-  render "govuk_publishing_components/components/textarea", {
-  label: {
-    text: "Part Description",
-    bold: true
-  },
-  id: "part_summary",
-  name: "part_summary",
-  value: field.field_value(content_context), # TODO removed init from params - for post validation fail repair - for spike expediency
-  rows: 4
-} %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%=
+      render "govuk_publishing_components/components/textarea", {
+        label: {
+          text: "Part Description",
+          bold: true
+        },
+        id: input_context.id("part_summary"),
+        name: input_context.name("part_summary"),
+        value: content.to_s,
+        rows: 4
+      } %>
+  </div>
+</div>

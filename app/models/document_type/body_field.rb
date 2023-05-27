@@ -1,14 +1,26 @@
+require_relative '../concerns/document_type/listable_field.rb'
+
 class DocumentType::BodyField
-  def externalise_content_fields(fields)
-    fields.push(self)
+  include DocumentType::ListableField
+
+  def top_level_field?
+    false
+  end
+
+  def as_list_items(edition:, content:)
+    [ as_list_item(edition:, content:) ]
+  end
+
+  def list_content_fields
+    [self]
   end
 
   def id
     "body"
   end
 
-  def payload(edition, payload_context, contents)
-    payload_context.deep_merge! body: GovspeakDocument.new(contents[id], edition).payload_html
+  def to_payload(edition, content)
+    GovspeakDocument.new(content, edition).payload_html
   end
 
   def updater_params(_edition, params)

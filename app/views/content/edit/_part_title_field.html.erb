@@ -1,11 +1,16 @@
-<%=
-  Rails.logger.info('content context for part title edit: ' + content_context.inspect)
-  render "govuk_publishing_components/components/input", {
-  label: {
-    text: "Part Title",
-    bold: true
-  },
-  id: "part_title",
-  name: "part_title",
-  value: field.field_value(content_context) # TODO removed init from params - for post validation fail repair - for spike expediency
-} %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%=
+      Rails.logger.info('content context for part title edit: ' + content.inspect)
+      render "govuk_publishing_components/components/input", {
+        label: {
+          text: "Part Title",
+          bold: true
+        },
+        id: input_context.id("part_title"),
+        name: input_context.name("part_title"),
+        value: content.to_s
+      } %>
+  </div>
+</div>

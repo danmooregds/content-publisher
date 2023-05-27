@@ -14,12 +14,8 @@ class DocumentType
     item || (raise "Document type #{id} not found")
   end
 
-  def content_fields
-    fields_collector = []
-    contents.each do |field|
-      field.externalise_content_fields(fields_collector)
-    end
-    fields_collector
+  def fields
+    contents
   end
 
   def self.all

@@ -1,6 +1,6 @@
 <%=
-  # TODO make relative to content context
+  Rails.logger.warn('**** rendering actual part title field')
   render "components/formatted_text", {
-  text: edition.contents["part"]["part_title"].to_s,
+  text: content.to_s,
   chars: 150
 } %>

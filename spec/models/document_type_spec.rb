@@ -24,22 +24,13 @@ RSpec.describe DocumentType do
 
   describe ".contents" do
     it "gives us body for news article" do
-      expect(DocumentType.find("news_story").contents.map(&:class).map(&:name)).to include("DocumentType::BodyField")
+      expect(DocumentType.find("news_story").fields.map(&:class).map(&:name)).to include("DocumentType::BodyField")
+    end
+
+    it "gives us body and parts for multi part" do
+      expect(DocumentType.find("multi_part").fields.map(&:class).map(&:name)).to include("DocumentType::BodyField", "DocumentType::PartsField", )
     end
   end
-
-  describe ".content_fields" do
-    it "gives us part title and part body for multipart" do
-      expect(DocumentType.find("multi_part").content_fields).to include(an_instance_of(DocumentType::PartTitleField))
-      expect(DocumentType.find("multi_part").content_fields).to include(an_instance_of(DocumentType::PartBodyField))
-    end
-
-    it "gives us content fields indirectly via part composite" do
-      expect(DocumentType.find("multi_part").contents).to include(an_instance_of(DocumentType::PartField))
-      expect(DocumentType.find("multi_part").content_fields).not_to include(an_instance_of(DocumentType::PartField))
-    end
-  end
-
 
   describe ".all" do
     it "creates a DocumentType for each one in the YAML" do

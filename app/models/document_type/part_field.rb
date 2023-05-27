@@ -1,41 +1,46 @@
 # frozen_string_literal: true
 
 class DocumentType::PartField
+  def top_level_field?
+    false
+  end
+
   def id
     "part"
   end
 
-  def contents
+  def as_list_items(edition:, content:, index: nil)
+    part_title = DocumentType::PartTitleField.new
+    part_title.as_list_items(edition:, content: content[part_title.id], label_override: "Part #{index}")
+  end
+
+  def fields
     [DocumentType::PartTitleField.new, DocumentType::PartSummaryField.new, DocumentType::PartBodyField.new]
   end
 
-  def externalise_content_fields(fields)
-    fields.concat contents
+  def subfield_content(content, subfield)
+    content[subfield.id]
   end
 
-  def field_value(content_context)
-    content_context[id] unless content_context.nil?
-  end
-
-  def payload(edition, payload_context, contents)
-    part_payload = {}
-    part_content = contents[id]
-    DocumentType::PartTitleField.new.payload(edition, part_payload, part_content)
-    DocumentType::PartSummaryField.new.payload(edition, part_payload, part_content)
-    DocumentType::PartBodyField.new.payload(edition, part_payload, part_content)
-    payload_context.deep_merge!(parts: [part_payload])
+  def to_payload(edition, content)
+    Rails.logger.warn('part content: ' + content.inspect)
+    title = DocumentType::PartTitleField.new.to_payload(edition, content['part_title'])
+    description = DocumentType::PartSummaryField.new.to_payload(edition, content['part_summary'])
+    body = DocumentType::PartBodyField.new.to_payload(edition, content['part_body'])
+    {
+      title:,
+      slug: title.parameterize,
+      description: description,
+      body: body
+    }
   end
 
   def updater_params(_edition, params)
-    {
-      contents: {
-        part: {
-          part_title: params[:part_title],
-          part_body: params[:part_body],
-          part_summary: params[:part_summary],
-        },
-      },
-    }
+    raise 'WIP not yet moved to composite-pattern hierarchical content updates'
+  end
+
+  def input_context
+    InputContext.new
   end
 
   def form_issues(_edition, _params)
@@ -49,4 +54,7 @@ class DocumentType::PartField
   def publish_issues(_edition)
     Requirements::CheckerIssues.new
   end
+
+  private
+
 end

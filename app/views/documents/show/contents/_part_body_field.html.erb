@@ -1,6 +1,5 @@
 <%=
-  # TODO make relative to content context
   render "components/formatted_text", {
-  text: edition.contents["part"]["part_body"].to_s,
+  text: content.to_s,
   chars: 150
 } %>

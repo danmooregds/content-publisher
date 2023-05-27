@@ -1,23 +1,31 @@
 # frozen_string_literal: true
 
 class DocumentType::PartTitleField
-  def externalise_content_fields(fields)
-    fields.push(self)
+  include DocumentType::ListableField
+
+  def top_level_field?
+    false
+  end
+
+  def as_list_items(edition:, content:, label_override:)
+    [ as_list_item(edition:, content:, label_override:) ]
+  end
+
+  def list_content_fields
+    [self]
   end
 
   def id
     "part_title"
   end
 
-  def field_value(content_context)
-    content_context[id] unless content_context.nil?
-  end
-
-  def payload(edition, payload_context, content_context)
-    payload_context.deep_merge! title: field_value(content_context), slug: field_value(content_context).parameterize
+  def to_payload(edition, content)
+    content
   end
 
   def updater_params(_edition, params)
+    raise 'WIP not yet moved to composite-pattern hierarchical content updates'
+
     { contents: { part_title: params[:part_title] } }
   end
 

@@ -1,8 +1,18 @@
 class DocumentType::TitleAndBasePathField
+  include DocumentType::ListableField
+
   TITLE_MAX_LENGTH = 300
 
-  def externalise_content_fields(fields)
-    fields.push(self)
+  def top_level_field?
+    true
+  end
+
+  def as_list_items(edition:, content:)
+    [ as_list_item(edition:, content:) ]
+  end
+
+  def list_content_fields
+    [self]
   end
 
   def id
