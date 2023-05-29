@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class DocumentType::PartsField
+  def as_list_items(edition:, content:)
+    Rails.logger.warn('parts field as list items, content: ' + content.inspect)
+    [ DocumentType::PartField.new.as_list_items(edition:, content: content['parts'][0]) ]
+  end
+
   def id
     "parts"
   end
@@ -13,14 +18,13 @@ class DocumentType::PartsField
     contents.map(&:list_content_fields)
   end
 
-  def field_value(content_context)
-    content_context
+  def subfield_content(content, subfield)
+    Rails.logger.warn('subfield_content parts content: ' + content.inspect)
+    content[0]
   end
 
   def to_payload(edition, contents)
-    Rails.logger.warn('parts content ' + contents.inspect)
-    part_payload = DocumentType::PartField.new.to_payload(edition, contents)
-    [part_payload]
+    [DocumentType::PartField.new.to_payload(edition, contents[0])]
   end
 
   def updater_params(_edition, params)
@@ -31,11 +35,11 @@ class DocumentType::PartsField
     Rails.logger.warn("parts params['parts']['0']: " + params['parts']['0'].inspect)
     {
       contents: {
-        part: {
+        parts: [{
           part_title: params['parts']['0']['part_title'],
           part_body: params['parts']['0']['part_body'],
           part_summary: params['parts']['0']['part_summary'],
-        },
+        }],
       },
     }
   end

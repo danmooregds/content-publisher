@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class DocumentType::PartBodyField
+  include DocumentType::ListableField
+
+  def as_list_items(edition:, content:)
+    [ as_list_item(edition:, content:) ]
+  end
+
   def list_content_fields
     [self]
   end
@@ -9,12 +15,8 @@ class DocumentType::PartBodyField
     "part_body"
   end
 
-  def field_value(content_context)
-    content_context[id] unless content_context.nil?
-  end
-
-  def to_payload(edition, contents)
-    GovspeakDocument.new(field_value(contents), edition).payload_html
+  def to_payload(edition, content)
+    GovspeakDocument.new(content, edition).payload_html
   end
 
   def updater_params(_edition, params)

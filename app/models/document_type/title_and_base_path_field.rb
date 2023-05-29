@@ -1,5 +1,11 @@
 class DocumentType::TitleAndBasePathField
+  include DocumentType::ListableField
+
   TITLE_MAX_LENGTH = 300
+
+  def as_list_items(edition:, content:)
+    [ as_list_item(edition:, content:) ]
+  end
 
   def list_content_fields
     [self]

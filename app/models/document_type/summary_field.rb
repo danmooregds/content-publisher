@@ -1,5 +1,11 @@
 class DocumentType::SummaryField
+  include DocumentType::ListableField
+
   SUMMARY_MAX_LENGTH = 600
+
+  def as_list_items(edition:, content:)
+    [ as_list_item(edition:, content:) ]
+  end
 
   def list_content_fields
     [self]

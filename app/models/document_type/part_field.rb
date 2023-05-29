@@ -5,6 +5,12 @@ class DocumentType::PartField
     "part"
   end
 
+  def as_list_items(edition:, content:)
+    contents.map do |subfield|
+      subfield.as_list_items(edition:, content: content[subfield.id])
+    end
+  end
+
   def contents
     [DocumentType::PartTitleField.new, DocumentType::PartSummaryField.new, DocumentType::PartBodyField.new]
   end
@@ -13,16 +19,16 @@ class DocumentType::PartField
     contents.map(&:list_content_fields)
   end
 
-  def field_value(content_context)
-    content_context[id] unless content_context.nil?
+  def subfield_content(content, subfield)
+    # key = subfield.id.sub /^part_/, ''
+    content[subfield.id]
   end
 
-  def to_payload(edition, content_context)
-    Rails.logger.warn('part content context ' + content_context.inspect)
-    part_content = content_context[id]
-    title = DocumentType::PartTitleField.new.to_payload(edition, part_content)
-    description = DocumentType::PartSummaryField.new.to_payload(edition, part_content)
-    body = DocumentType::PartBodyField.new.to_payload(edition, part_content)
+  def to_payload(edition, content)
+    Rails.logger.warn('part content: ' + content.inspect)
+    title = DocumentType::PartTitleField.new.to_payload(edition, content['part_title'])
+    description = DocumentType::PartSummaryField.new.to_payload(edition, content['part_summary'])
+    body = DocumentType::PartBodyField.new.to_payload(edition, content['part_body'])
     {
       title:,
       slug: title.parameterize,
@@ -33,15 +39,6 @@ class DocumentType::PartField
 
   def updater_params(_edition, params)
     raise 'WIP not yet moved to composite-pattern hierarchical content updates'
-    {
-      contents: {
-        part: {
-          part_title: params[:part_title],
-          part_body: params[:part_body],
-          part_summary: params[:part_summary],
-        },
-      },
-    }
   end
 
   def input_context
@@ -59,4 +56,7 @@ class DocumentType::PartField
   def publish_issues(_edition)
     Requirements::CheckerIssues.new
   end
+
+  private
+
 end

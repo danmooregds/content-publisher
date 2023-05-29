@@ -6,7 +6,7 @@ Part start
              issues: @issues,
              field: subfield,
              input_context: input_context,
-             content_context: field.field_value(content_context) %>
+             content: field.subfield_content(content, subfield) %>
 <% end %>
 
 Part depart

@@ -6,7 +6,7 @@ Parts start
              issues: @issues,
              field: subfield,
              input_context: DocumentType::InputContext.new([:parts, 0]),
-             content_context: field.field_value(content_context) %>
+             content: field.subfield_content(content, subfield) %>
 <% end %>
 
 Parts depart

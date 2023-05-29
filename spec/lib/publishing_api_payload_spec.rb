@@ -190,11 +190,11 @@ RSpec.describe PublishingApiPayload do
         multipart_type = DocumentType.find('multi_part')
         edition = build(:edition, document_type: multipart_type, contents: {
           'body' => "the specific body",
-          'part' => {
-            'part_title' => "part title",
-            'part_body' => "part body",
-            'part_summary' => "part desc"
-          }
+          'parts' => [{
+                       'part_title' => "part title",
+                       'part_body' => "part body",
+                       'part_summary' => "part desc"
+                     }]
         })
         payload = PublishingApiPayload.new(edition).payload
         expect(payload[:details][:body]).to include('the specific body')

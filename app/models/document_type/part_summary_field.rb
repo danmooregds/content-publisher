@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class DocumentType::PartSummaryField
+  include DocumentType::ListableField
+
+  def as_list_items(edition:, content:)
+    [ as_list_item(edition:, content:) ]
+  end
+
   def list_content_fields
     [self]
   end
@@ -9,12 +15,8 @@ class DocumentType::PartSummaryField
     "part_summary"
   end
 
-  def field_value(content_context)
-    content_context[id] unless content_context.nil?
-  end
-
-  def to_payload(edition, contents)
-    field_value(contents)
+  def to_payload(edition, content)
+    content
   end
 
   def updater_params(_edition, params)

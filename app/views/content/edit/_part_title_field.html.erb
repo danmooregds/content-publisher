@@ -1,5 +1,5 @@
 <%=
-  Rails.logger.info('content context for part title edit: ' + content_context.inspect)
+  Rails.logger.info('content context for part title edit: ' + content.inspect)
   render "govuk_publishing_components/components/input", {
   label: {
     text: "Part Title",
@@ -7,5 +7,5 @@
   },
   id: input_context.id("part_title"),
   name: input_context.name("part_title"),
-  value: field.field_value(content_context) # TODO removed init from params - for post validation fail repair - for spike expediency
+  value: content.to_s
 } %>
