@@ -1,12 +1,15 @@
 Parts start
 
-<% field.contents.each do |subfield| %>
-  <%= render "content/edit/#{subfield.id}_field",
-             edition: @edition,
-             issues: @issues,
-             field: subfield,
-             input_context: DocumentType::InputContext.new([:parts, 0]),
-             content: field.subfield_content(content, subfield) %>
-<% end %>
+<% field.contents.each do |subfield|
+  field.subfield_content(content, subfield).each_with_index do |subcontent, index| %>
+    <%= render "content/edit/#{subfield.id}_field",
+                     edition: @edition,
+                     issues: @issues,
+                     field: subfield,
+                     input_context: DocumentType::InputContext.new([:parts, index]),
+                     content: subcontent
+    %>
+<%  end
+  end %>
 
 Parts depart

@@ -3,6 +3,10 @@ class DocumentType::TitleAndBasePathField
 
   TITLE_MAX_LENGTH = 300
 
+  def top_level_field?
+    true
+  end
+
   def as_list_items(edition:, content:)
     [ as_list_item(edition:, content:) ]
   end

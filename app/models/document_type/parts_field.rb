@@ -1,45 +1,49 @@
 # frozen_string_literal: true
 
 class DocumentType::PartsField
+  def top_level_field?
+    false
+  end
+
   def as_list_items(edition:, content:)
     Rails.logger.warn('parts field as list items, content: ' + content.inspect)
-    [ DocumentType::PartField.new.as_list_items(edition:, content: content['parts'][0]) ]
+    part_count = content.length
+    (0..(part_count - 1)).map do |index|
+      DocumentType::PartField.new.as_list_items(edition:, content: content[index])
+    end
   end
 
   def id
     "parts"
   end
 
-  def contents
-    [DocumentType::PartField.new]
-  end
-
-  def list_content_fields
-    contents.map(&:list_content_fields)
+  def contents(content = [])
+    parts_count = [content.length, 1].max
+    [DocumentType::PartField.new] * parts_count
   end
 
   def subfield_content(content, subfield)
     Rails.logger.warn('subfield_content parts content: ' + content.inspect)
-    content[0]
+    content
   end
 
   def to_payload(edition, contents)
-    [DocumentType::PartField.new.to_payload(edition, contents[0])]
+    contents.map {|part_content| DocumentType::PartField.new.to_payload(edition, part_content) }
   end
 
   def updater_params(_edition, params)
-    Rails.logger.warn('parts params: ' + params.inspect)
-    Rails.logger.warn('parts params[:parts]: ' + params[:parts].inspect)
-    Rails.logger.warn("parts params['parts']: " + params['parts'].inspect)
-    Rails.logger.warn("parts params['parts'][0]: " + params['parts'][0].inspect)
-    Rails.logger.warn("parts params['parts']['0']: " + params['parts']['0'].inspect)
+    max_part_index = params['parts'].keys.length - 1
+
+    parts = (0..max_part_index).map do |index|
+      {
+        part_title: params['parts'][index.to_s]['part_title'],
+        part_body: params['parts'][index.to_s]['part_body'],
+        part_summary: params['parts'][index.to_s]['part_summary'],
+      }
+    end
     {
       contents: {
-        parts: [{
-          part_title: params['parts']['0']['part_title'],
-          part_body: params['parts']['0']['part_body'],
-          part_summary: params['parts']['0']['part_summary'],
-        }],
+        parts: parts,
       },
     }
   end

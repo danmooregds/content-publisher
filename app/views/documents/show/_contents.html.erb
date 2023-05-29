@@ -1,9 +1,11 @@
 <% contents = @edition.document_type.contents.map { |field|
   Rails.logger.warn('rendering contents for: ' + field.id)
-  field.as_list_items(edition: @edition, content: @edition.contents)
+  if field.top_level_field?
+    field.as_list_items(edition: @edition, content: {})
+  else
+    field.as_list_items(edition: @edition, content: @edition.contents[field.id])
+  end
 }.flatten
-   Rails.logger.warn('first contents field: ' + contents[0][:field])
-   Rails.logger.warn('first contents value: |' + contents[0][:value] + '|')
 %>
 
 <% edition_metadata = [] %>

@@ -3,6 +3,10 @@
 class DocumentType::PartSummaryField
   include DocumentType::ListableField
 
+  def top_level_field?
+    false
+  end
+
   def as_list_items(edition:, content:)
     [ as_list_item(edition:, content:) ]
   end

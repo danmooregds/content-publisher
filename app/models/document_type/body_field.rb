@@ -3,6 +3,10 @@ require_relative '../concerns/document_type/listable_field.rb'
 class DocumentType::BodyField
   include DocumentType::ListableField
 
+  def top_level_field?
+    false
+  end
+
   def as_list_items(edition:, content:)
     [ as_list_item(edition:, content:) ]
   end

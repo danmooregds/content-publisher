@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class DocumentType::PartField
+  def top_level_field?
+    false
+  end
+
   def id
     "part"
   end
@@ -13,10 +17,6 @@ class DocumentType::PartField
 
   def contents
     [DocumentType::PartTitleField.new, DocumentType::PartSummaryField.new, DocumentType::PartBodyField.new]
-  end
-
-  def list_content_fields
-    contents.map(&:list_content_fields)
   end
 
   def subfield_content(content, subfield)
