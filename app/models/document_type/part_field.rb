@@ -32,6 +32,7 @@ class DocumentType::PartField
   end
 
   def updater_params(_edition, params)
+    raise 'WIP not yet moved to composite-pattern hierarchical content updates'
     {
       contents: {
         part: {
@@ -41,6 +42,10 @@ class DocumentType::PartField
         },
       },
     }
+  end
+
+  def input_context
+    InputContext.new
   end
 
   def form_issues(_edition, _params)

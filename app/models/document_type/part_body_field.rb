@@ -18,6 +18,8 @@ class DocumentType::PartBodyField
   end
 
   def updater_params(_edition, params)
+    raise 'WIP not yet moved to composite-pattern hierarchical content updates'
+
     { contents: { part_body: params[:part_body] } }
   end
 

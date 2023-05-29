@@ -20,6 +20,8 @@ class DocumentType::PartTitleField
   end
 
   def updater_params(_edition, params)
+    raise 'WIP not yet moved to composite-pattern hierarchical content updates'
+
     { contents: { part_title: params[:part_title] } }
   end
 

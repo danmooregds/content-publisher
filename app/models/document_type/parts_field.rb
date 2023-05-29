@@ -24,12 +24,17 @@ class DocumentType::PartsField
   end
 
   def updater_params(_edition, params)
+    Rails.logger.warn('parts params: ' + params.inspect)
+    Rails.logger.warn('parts params[:parts]: ' + params[:parts].inspect)
+    Rails.logger.warn("parts params['parts']: " + params['parts'].inspect)
+    Rails.logger.warn("parts params['parts'][0]: " + params['parts'][0].inspect)
+    Rails.logger.warn("parts params['parts']['0']: " + params['parts']['0'].inspect)
     {
       contents: {
         part: {
-          part_title: params[:part_title],
-          part_body: params[:part_body],
-          part_summary: params[:part_summary],
+          part_title: params['parts']['0']['part_title'],
+          part_body: params['parts']['0']['part_body'],
+          part_summary: params['parts']['0']['part_summary'],
         },
       },
     }

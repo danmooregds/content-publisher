@@ -5,6 +5,7 @@ Parts start
              edition: @edition,
              issues: @issues,
              field: subfield,
+             input_context: DocumentType::InputContext.new([:parts, 0]),
              content_context: field.field_value(content_context) %>
 <% end %>
 
