@@ -23,7 +23,7 @@ class DocumentType::PartsField
 
   def subfield_content(content, subfield)
     Rails.logger.warn('subfield_content parts content: ' + content.inspect)
-    return [{}] if content.nil? or content.empty? # default form
+    return [{}] * 3 if content.nil? or content.empty? # default form
     content
   end
 
