@@ -1,5 +1,3 @@
-Parts start
-
 <% field.fields.each do |subfield|
   field.subfield_content(content, subfield).each_with_index do |part_content, index| %>
     <%= render "content/edit/#{subfield.id}_field",
@@ -11,5 +9,3 @@ Parts start
     %>
 <%  end
   end %>
-
-Parts depart

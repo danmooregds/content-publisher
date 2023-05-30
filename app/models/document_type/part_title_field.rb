@@ -7,8 +7,8 @@ class DocumentType::PartTitleField
     false
   end
 
-  def as_list_items(edition:, content:)
-    [ as_list_item(edition:, content:) ]
+  def as_list_items(edition:, content:, label_override:)
+    [ as_list_item(edition:, content:, label_override:) ]
   end
 
   def list_content_fields

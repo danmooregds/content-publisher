@@ -9,7 +9,7 @@ class DocumentType::PartsField
     Rails.logger.warn('parts field as list items, content: ' + content.inspect)
     part_count = content.length
     (0..(part_count - 1)).map do |index|
-      DocumentType::PartField.new.as_list_items(edition:, content: content[index])
+      DocumentType::PartField.new.as_list_items(edition:, content: content[index], index: index + 1)
     end
   end
 

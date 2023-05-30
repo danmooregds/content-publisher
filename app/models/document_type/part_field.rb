@@ -9,10 +9,9 @@ class DocumentType::PartField
     "part"
   end
 
-  def as_list_items(edition:, content:)
-    fields.map do |subfield|
-      subfield.as_list_items(edition:, content: content[subfield.id])
-    end
+  def as_list_items(edition:, content:, index: nil)
+    part_title = DocumentType::PartTitleField.new
+    part_title.as_list_items(edition:, content: content[part_title.id], label_override: "Part #{index}")
   end
 
   def fields
