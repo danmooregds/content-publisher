@@ -10,17 +10,16 @@ class DocumentType::PartField
   end
 
   def as_list_items(edition:, content:)
-    contents.map do |subfield|
+    fields.map do |subfield|
       subfield.as_list_items(edition:, content: content[subfield.id])
     end
   end
 
-  def contents
+  def fields
     [DocumentType::PartTitleField.new, DocumentType::PartSummaryField.new, DocumentType::PartBodyField.new]
   end
 
   def subfield_content(content, subfield)
-    # key = subfield.id.sub /^part_/, ''
     content[subfield.id]
   end
 

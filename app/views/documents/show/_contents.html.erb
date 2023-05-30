@@ -1,5 +1,6 @@
-<% contents = @edition.document_type.contents.map { |field|
+<% contents = @edition.document_type.fields.map { |field|
   Rails.logger.warn('rendering contents for: ' + field.id)
+  # move into Field objects?
   if field.top_level_field?
     field.as_list_items(edition: @edition, content: {})
   else

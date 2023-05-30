@@ -71,6 +71,6 @@ private
   end
 
   def fields
-    @fields ||= edition.document_type.contents
+    @fields ||= edition.document_type.fields
   end
 end

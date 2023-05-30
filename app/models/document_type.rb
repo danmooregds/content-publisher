@@ -14,6 +14,10 @@ class DocumentType
     item || (raise "Document type #{id} not found")
   end
 
+  def fields
+    contents
+  end
+
   def self.all
     @all ||= begin
       hashes = YAML.load_file(Rails.root.join("config/document_types.yml"), aliases: true)["document_types"]

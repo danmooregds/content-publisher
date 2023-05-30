@@ -17,13 +17,13 @@ class DocumentType::PartsField
     "parts"
   end
 
-  def contents(content = [])
-    parts_count = [content.length, 1].max
-    [DocumentType::PartField.new] * parts_count
+  def fields
+    [DocumentType::PartField.new]
   end
 
   def subfield_content(content, subfield)
     Rails.logger.warn('subfield_content parts content: ' + content.inspect)
+    return [{}] if content.nil? or content.empty? # default form
     content
   end
 
