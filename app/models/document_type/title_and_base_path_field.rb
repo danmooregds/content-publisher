@@ -20,12 +20,20 @@ class DocumentType::TitleAndBasePathField
   end
 
   def payload(edition, payload_context)
+    routes = [
+      { path: edition.base_path, type: "exact" },
+    ]
+
+    if edition.contents['parts']
+      edition.contents['parts'].each do |part|
+        routes.push({ path: edition.base_path + "/#{part['part_title'].parameterize}", type: "exact" })
+      end
+    end
+
     payload_context.deep_merge!({
       base_path: edition.base_path,
       title: edition.title,
-      routes: [
-        { path: edition.base_path, type: "exact" },
-      ],
+      routes: routes,
     })
   end
 

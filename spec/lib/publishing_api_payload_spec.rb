@@ -206,6 +206,30 @@ RSpec.describe PublishingApiPayload do
                                                  }
                                                 ])
       end
+
+      it 'saves a compliant payload from a multi-part instance' do
+        multipart_type = DocumentType.find('multi_part')
+        edition = build(:edition, document_type: multipart_type, contents: {
+          'body' => "the specific body",
+          'parts' => [{
+                       'part_title' => "part title",
+                       'part_body' => "part body",
+                       'part_summary' => "part desc"
+                     }]
+        })
+        payload = PublishingApiPayload.new(edition).payload
+        expect(payload[:details][:body]).to include('the specific body')
+        route_paths = payload[:routes].map { |route| route[:path] }
+        expect(route_paths.length).to eq(2)
+        expect(route_paths.last).to end_with('/part-title')
+        expect(payload[:details][:parts]).to eq([{
+                                                   title: 'part title',
+                                                   slug: 'part-title',
+                                                   body: "<p>part body</p>\n",
+                                                   description: 'part desc'
+                                                 }
+                                                ])
+      end
     end
   end
 end
