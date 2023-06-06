@@ -82,6 +82,11 @@ class Edition < ApplicationRecord
            :editor_political,
            :featured_attachments,
            :featured_attachment_ordering,
+           # :parent,
+           # :parent_id,
+           # :has_parent?,
+           :children,
+           :has_children?,
            to: :revision
 
   scope :find_current, lambda { |id: nil, document: nil|

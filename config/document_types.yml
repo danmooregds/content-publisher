@@ -73,6 +73,10 @@ document_types:
     <<: *news_article
     label: News story
 
+  - id: multi_part
+    <<: *news_article
+    label: Not-really-multi-part based on news article
+
   - id: notice
     <<: *publication
     label: Notice

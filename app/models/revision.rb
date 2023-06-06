@@ -40,6 +40,9 @@ class Revision < ApplicationRecord
                           association_foreign_key: "file_attachment_revision_id",
                           join_table: "revisions_file_attachment_revisions"
 
+  has_many :parentings, foreign_key: "parent_id"
+  has_many :children, through: :parentings, class_name: "Document"
+
   delegate :title,
            :base_path,
            :summary,
@@ -63,6 +66,13 @@ class Revision < ApplicationRecord
            :primary_publishing_organisation_id,
            :supporting_organisation_ids,
            to: :tags_revision
+
+  def has_children?
+    Rails.logger.warn('in revision#has_children?, children is: ' + children.inspect)
+    Rails.logger.warn('in revision#has_children?, children.empty? is: ' + children.empty?.to_s)
+    Rails.logger.warn('in revision#has_children?, children current editions is: ' + children.map(&:current_edition).inspect)
+    !children.empty?
+  end
 
   def readonly?
     !new_record?

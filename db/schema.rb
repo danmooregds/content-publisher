@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_16_182836) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_06_161417) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -238,6 +238,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_16_182836) do
     t.string "featured_attachment_ordering", default: [], null: false, array: true
   end
 
+  create_table "parentings", force: :cascade do |t|
+    t.bigint "parent_id", null: false
+    t.bigint "child_id", null: false
+    t.integer "ordinal"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_id"], name: "index_parentings_on_child_id"
+    t.index ["parent_id"], name: "index_parentings_on_parent_id"
+  end
+
   create_table "removals", force: :cascade do |t|
     t.string "explanatory_note"
     t.string "alternative_url"
@@ -440,6 +450,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_16_182836) do
   add_foreign_key "internal_notes", "editions", on_delete: :cascade
   add_foreign_key "internal_notes", "users", column: "created_by_id", on_delete: :restrict
   add_foreign_key "metadata_revisions", "users", column: "created_by_id", on_delete: :restrict
+  add_foreign_key "parentings", "documents", column: "child_id"
+  add_foreign_key "parentings", "revisions", column: "parent_id"
   add_foreign_key "revisions", "content_revisions", on_delete: :restrict
   add_foreign_key "revisions", "documents", on_delete: :restrict
   add_foreign_key "revisions", "image_revisions", column: "lead_image_revision_id", on_delete: :restrict

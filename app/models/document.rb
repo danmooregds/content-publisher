@@ -25,6 +25,9 @@ class Document < ApplicationRecord
 
   has_many :timeline_entries
 
+  has_many :parentings
+  has_many :parents, through: :parentings
+
   enum imported_from: { whitehall: "whitehall" }, _prefix: true
 
   delegate :topics, to: :document_topics
