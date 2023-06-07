@@ -52,7 +52,7 @@ class Edition < ApplicationRecord
                           class_name: "User",
                           join_table: :edition_editors
 
-  delegate :content_id, :locale, :topics, :document_topics, to: :document
+  delegate :content_id, :locale, :topics, :document_topics, :parents, :parent, :has_parent?, to: :document
 
   # delegate each state enum method
   state_methods = Status.states.keys.map { |s| "#{s}?".to_sym }
@@ -82,9 +82,6 @@ class Edition < ApplicationRecord
            :editor_political,
            :featured_attachments,
            :featured_attachment_ordering,
-           # :parent,
-           # :parent_id,
-           # :has_parent?,
            :children,
            :has_children?,
            to: :revision

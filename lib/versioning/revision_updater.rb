@@ -42,8 +42,22 @@ module Versioning
         r.created_by = user
         r.number = revision.document.next_revision_number
         r.image_revisions = revision.image_revisions
+
+        Rails.logger.warn('revision children: ' + revision.children.inspect)
+        Rails.logger.warn('dup revision children before: ' + r.children.inspect)
+
+        begin
+          revision.children.each {|c| r.children << c }
+        rescue => e
+          Rails.logger.warn("error assigning children to duplicate: #{e.inspect}")
+        end
+
+        Rails.logger.warn('dup revision children after: ' + r.children.inspect)
+
         r.file_attachment_revisions = revision.file_attachment_revisions
         r.preceded_by = revision
+        Rails.logger.warn("revision.id: #{revision.id}")
+        Rails.logger.warn("dup r.id: #{r.id}")
       end
     end
 

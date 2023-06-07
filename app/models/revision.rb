@@ -40,7 +40,10 @@ class Revision < ApplicationRecord
                           association_foreign_key: "file_attachment_revision_id",
                           join_table: "revisions_file_attachment_revisions"
 
-  has_many :parentings, foreign_key: "parent_id"
+  has_many :parentings,
+           foreign_key: "parent_id",
+           inverse_of: "parent" # wow, this option was necessary to solve the error:        +#<ActiveModel::Errors [#<ActiveModel::Error attribute=parentings, type=invalid, options={}>]>
+  
   has_many :children, through: :parentings, class_name: "Document"
 
   delegate :title,

@@ -3,10 +3,10 @@
   title: "Family",
   borderless: true,
   items: [
-    # {
-    #   field: 'parent',
-    #   value: ((@edition.has_parent? and not @edition.parent_id.nil?) ? @edition.parent.title : 'no parent')
-    # },
+          {
+            field: 'parent',
+            value: (@edition.has_parent? ? "#{@edition.parent.title} (of #{@edition.parents.length})" : 'no parent')
+          },
           {
             field: 'children',
             value: (@edition.has_children? ? @edition.children.map(&:current_edition).map(&:title) : 'no children')

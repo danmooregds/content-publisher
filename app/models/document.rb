@@ -25,12 +25,20 @@ class Document < ApplicationRecord
 
   has_many :timeline_entries
 
-  has_many :parentings
+  has_many :parentings, foreign_key: "child_id", inverse_of: "child"
   has_many :parents, through: :parentings
 
   enum imported_from: { whitehall: "whitehall" }, _prefix: true
 
   delegate :topics, to: :document_topics
+
+  def has_parent?
+    !parents.empty?
+  end
+
+  def parent
+    parents.first
+  end
 
   scope :with_current_edition, lambda {
     join_tables = { current_edition: %i[revision status] }

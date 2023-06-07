@@ -94,5 +94,43 @@ RSpec.describe Versioning::RevisionUpdater do
         expect(next_revision.public_send(name)).to eq value
       end
     end
+
+    describe "revision with child documents" do
+      let(:parent_revision) {
+        revision.children << create(:document)
+        revision
+      }
+
+      it "preserves associations to child documents" do
+        updater = described_class.new(parent_revision, user)
+
+        expect(parent_revision.children).not_to be_empty
+
+        updater.assign(summary: "new summary")
+        next_revision = updater.next_revision
+
+        expect(next_revision).not_to eq parent_revision
+        expect(next_revision.children).to eq revision.children
+      end
+
+      it "creates a saveable next revision" do
+        updater = described_class.new(parent_revision, user)
+
+        expect(parent_revision.children).not_to be_empty
+
+        updater.assign(summary: "changed summary")
+        next_revision = updater.next_revision
+
+        begin
+          expect(next_revision.new_record?).to eq true
+          next_revision.save!
+        rescue ActiveRecord::RecordInvalid => invalid
+          expect(invalid.record.errors).to eq []
+        end
+
+        expect(next_revision.id).not_to be_nil
+        expect(next_revision.new_record?).to eq false
+      end
+    end
   end
 end

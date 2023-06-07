@@ -68,6 +68,7 @@ FactoryBot.define do
           created_by: revision.created_by,
         )
       end
+
     end
   end
 end
