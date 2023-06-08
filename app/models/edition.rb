@@ -83,6 +83,7 @@ class Edition < ApplicationRecord
            :featured_attachments,
            :featured_attachment_ordering,
            :children,
+           :child_editions,
            :has_children?,
            to: :revision
 

@@ -1,0 +1,5 @@
+<% content_for :back_link, render_back_link(href: document_path(@edition.document)) %>
+
+<% @edition.child_editions.each do |child| %>
+  <p><%= child.title %></p>
+<% end %>

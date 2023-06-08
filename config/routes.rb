@@ -109,6 +109,12 @@ Rails.application.routes.draw do
     patch "/file-attachments/:file_attachment_id/edit" => "file_attachments#update"
     delete "/file-attachments/:file_attachment_id" => "file_attachments#destroy"
     get "/file-attachments/:file_attachment_id/delete" => "file_attachments#confirm_delete", as: :confirm_delete_file_attachment
+
+    scope "/children/items" do
+      get "" => "children#edit", as: :children
+      post "" => "children#create"
+    end
+
   end
 
   get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }

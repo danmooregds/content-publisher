@@ -77,6 +77,10 @@ class Revision < ApplicationRecord
     !children.empty?
   end
 
+  def child_editions
+    children.map(&:current_edition)
+  end
+
   def readonly?
     !new_record?
   end

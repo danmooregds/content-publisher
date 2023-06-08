@@ -2,6 +2,11 @@
   id: "family",
   title: "Family",
   borderless: true,
+  edit: (
+    if @edition.editable? and not @edition.has_parent?
+      { href: children_path(@edition.document) }
+    end
+  ),
   items: [
           {
             field: 'parent',
