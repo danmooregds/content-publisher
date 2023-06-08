@@ -26,7 +26,7 @@ class Document < ApplicationRecord
   has_many :timeline_entries
 
   has_many :parentings, foreign_key: "child_id", inverse_of: "child"
-  has_many :parents, through: :parentings
+  has_many :parents, -> { order(parent_id: :desc).limit(1) }, through: :parentings
 
   enum imported_from: { whitehall: "whitehall" }, _prefix: true
 
@@ -37,6 +37,7 @@ class Document < ApplicationRecord
   end
 
   def parent
+    Rails.logger.warn("parents: #{parents.inspect}")
     parents.first
   end
 
