@@ -1,5 +1,31 @@
 <% content_for :back_link, render_back_link(href: document_path(@edition.document)) %>
 
-<% @edition.child_editions.each do |child| %>
-  <p><%= child.title %></p>
+<% children = @edition.child_editions.map do |child|
+  {
+    field: 'Child',
+    value: child.title
+  }
+  end %>
+
+<%= render "components/media_with_actions", actions: [] do %>
+  <%= render "govuk_publishing_components/components/summary_list", {
+    id: "content",
+    borderless: true,
+    items: children
+  } %>
 <% end %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_tag(
+          children_path(@edition.document),
+          method: :post
+        ) do %>
+
+      <%= render "govuk_publishing_components/components/button", {
+          text: "Add child",
+          margin_bottom: true,
+        } %>
+    <% end %>
+  </div>
+</div>

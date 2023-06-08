@@ -3,10 +3,20 @@ class DocumentType::BodyField
     "body"
   end
 
+  def children_list_html(edition)
+
+    list_items = edition.children.map do |child|
+      child_edition = child.current_edition
+      "<li><a href=\"#{child_edition.base_path}\">#{child_edition.title}</a></li>"
+    end.join("\n")
+
+    "<ul>#{list_items}</ul"
+  end
+
   def payload(edition)
     {
       details: {
-        body: GovspeakDocument.new(edition.contents[id], edition).payload_html,
+        body: GovspeakDocument.new(edition.contents[id], edition).payload_html + children_list_html(edition),
       },
     }
   end

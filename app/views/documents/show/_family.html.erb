@@ -10,11 +10,21 @@
   items: [
           {
             field: 'parent',
-            value: (@edition.has_parent? ? "#{@edition.parent.title} (of #{@edition.parents.length})" : 'no parent')
-          },
-          {
-            field: 'children',
-            value: (@edition.has_children? ? @edition.children.map(&:current_edition).map(&:title) : 'no children')
+            value: (@edition.has_parent? ?
+                link_to(@edition.parent.title, document_path(@edition.parent.document),
+                  class: "govuk-link govuk-link--no-visited-state")
+                      : 'no parent')
           }
-  ]
+  ] + (@edition.has_children? ? (@edition.children.each_with_index.map do |child, index|
+    {
+      field: "child #{index}",
+      value: link_to(child.current_edition.title, document_path(child),
+                     class: "govuk-link govuk-link--no-visited-state")
+    }
+  end) : [
+    {
+      field: 'children',
+      value: 'no children'
+    }
+  ])
 } %>
