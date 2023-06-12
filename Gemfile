@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 gem "rails", "7.0.5"
 
+gem "debug"
 gem "aws-sdk-s3"
 gem "bootsnap", require: false
 gem "gds-api-adapters"

@@ -109,6 +109,9 @@ GEM
       rexml
     crass (1.0.6)
     date (3.3.3)
+    debug (1.8.0)
+      irb (>= 1.5.0)
+      reline (>= 0.3.1)
     diff-lcs (1.5.0)
     docile (1.4.0)
     domain_name (0.5.20190701)
@@ -205,6 +208,9 @@ GEM
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
     interactor (3.1.2)
+    io-console (0.6.0)
+    irb (1.7.0)
+      reline (>= 0.3.0)
     jmespath (1.6.2)
     json (2.6.3)
     json-schema (4.0.0)
@@ -362,6 +368,8 @@ GEM
     redis-namespace (1.10.0)
       redis (>= 4)
     regexp_parser (2.6.2)
+    reline (0.3.5)
+      io-console (~> 0.5)
     request_store (1.5.1)
       rack (>= 1.4)
     rest-client (2.1.0)
@@ -519,6 +527,7 @@ DEPENDENCIES
   brakeman
   byebug
   climate_control
+  debug
   factory_bot_rails
   gds-api-adapters
   gds-sso
